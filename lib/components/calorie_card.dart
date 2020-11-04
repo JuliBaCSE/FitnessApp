@@ -13,8 +13,8 @@ class CalorieCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(caloriesAmount.toString(), style: kNumberTextStyle,),
-          
-          Text('${date.day} : ${date.month} : ${date.year}', style: kNumberTextStyle,),
+          Spacer(flex: 2,),
+          Text('${date.hour} : ${date.minute} : ${date.second}', style: kNumberTextStyle,),
         ],
       ),
       margin: EdgeInsets.all(10),

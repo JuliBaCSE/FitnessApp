@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constants.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
+import '../constants.dart';
 import 'results_page.dart';
-import 'package:bmi_calculator/Bottom_button.dart';
-import 'round_icon_button.dart';
+import 'package:bmi_calculator/components/Bottom_button.dart';
+import '../components/round_icon_button.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
 
 enum Gender { Male, Female }
 
@@ -15,15 +16,17 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Gender selectedGender;
+  String selectedGender = 'male';
   int height = 180;
   int weight = 60;
   int age = 19;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('BMI CALCULATOR'),
+          title: Text('BMR CALCULATOR'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,10 +38,10 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     onPress: () {
                       setState(() {
-                        selectedGender = Gender.Male;
+                        selectedGender = 'male';
                       });
                     },
-                    colour: selectedGender == Gender.Male
+                    colour: selectedGender == 'male'
                         ? kContainerColor
                         : kInactiveContainerColor,
                     cardChild: IconContent(
@@ -51,10 +54,10 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     onPress: () {
                       setState(() {
-                        selectedGender = Gender.Female;
+                        selectedGender = 'female';
                       });
                     },
-                    colour: selectedGender == Gender.Female
+                    colour: selectedGender == 'female'
                         ? kContainerColor
                         : kInactiveContainerColor,
                     cardChild: IconContent(
@@ -205,9 +208,13 @@ class _InputPageState extends State<InputPage> {
               ],
             )),
             BottomButton( ButtonTitle: 'CALCULATE', onTap: () {
+
+              CalculatorBrain calc = CalculatorBrain(height: height, weight: weight, age: age, gender: selectedGender);
+
+
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ResultsPage()),
+                MaterialPageRoute(builder: (context) => ResultsPage(bmrResults: calc.calculateBMR(),)),
               );
             },),
           ],
