@@ -12,8 +12,11 @@ class CalorieTracking extends StatefulWidget {
   _CalorieTrackingState createState() => _CalorieTrackingState();
 }
 
+
 class _CalorieTrackingState extends State<CalorieTracking> {
   int amountCalorie;
+  DateTime date = DateTime.now();
+
   List<FlSpot> trackedCalories = [
     FlSpot(1, 3000),
     FlSpot(2, 2000),
@@ -21,7 +24,15 @@ class _CalorieTrackingState extends State<CalorieTracking> {
     FlSpot(4, 2500),
     FlSpot(5, 3000),
     FlSpot(6, 2600),
+    FlSpot(7, 2600),
   ];
+  double calcAvg(List<FlSpot> dataList){
+    double avgVal=0;
+    for(FlSpot i in dataList){
+      avgVal += i.props[1];
+    };
+    return avgVal/7;
+  }
   List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
@@ -78,10 +89,9 @@ class _CalorieTrackingState extends State<CalorieTracking> {
                         //ToDo1: make live update of chart
                         //ToDo2: make weekly and monthly
                         DateTime date = DateTime.now();
-                        print(amountCalorie);
                         trackedCalories.add(
                           //date.day.toDouble()
-                          FlSpot( 7, amountCalorie.toDouble(),
+                          FlSpot(date.weekday.toDouble(), amountCalorie.toDouble(),
                           ),
                         );
                       });
@@ -107,6 +117,25 @@ class _CalorieTrackingState extends State<CalorieTracking> {
               //trackedCalories,
             ),
           ),
+          ReusableCard(
+            colour: kContainerColor,
+            cardChild: Container(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Avg Calories this Week",
+                    style: kTitleTextStyle2,
+                  ),
+                  SizedBox(height: 15.0,),
+                  Text(calcAvg(trackedCalories).toStringAsFixed(1), textAlign: TextAlign.center, style: kNumberTextStyle, ),
+
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );
