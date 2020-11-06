@@ -4,13 +4,15 @@ class AddIconButton extends StatelessWidget {
   AddIconButton({
     @required this.icon,
     @required this.onPressed,
+    this.title
   });
   final IconData icon;
   final Function onPressed;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      child: Row(children: [Icon(icon),Text("Add", style: kLargeButtonTextStyle,)]),
+      child: Row(children: [Icon(icon),Text(title, style: kLargeButtonTextStyle2,)]),
       onPressed: onPressed,
       elevation: 0,
       constraints: BoxConstraints.tightFor(

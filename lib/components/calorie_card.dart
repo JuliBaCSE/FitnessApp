@@ -12,9 +12,9 @@ class CalorieCard extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(caloriesAmount.toString(), style: kNumberTextStyle,),
+          Text("${caloriesAmount.toString()} calc" , style: kCalcTrackTextStyle,),
           Spacer(flex: 2,),
-          Text('${date.hour} : ${date.minute} : ${date.second}', style: kNumberTextStyle,),
+          Text('${date.day}.${date.month} at ${date.hour} : ${date.minute}', style: kCalcTrackTextStyle,),
         ],
       ),
       margin: EdgeInsets.all(10),
