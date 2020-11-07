@@ -4,13 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 class CalorieData extends ChangeNotifier{
   List<FlSpot> _trackedCalories = [
-    FlSpot(1, 3000),
-    FlSpot(2, 2000),
-    FlSpot(3, 3000),
-    FlSpot(4, 2500),
-    FlSpot(5, 3000),
-    FlSpot(6, 2600),
-    FlSpot(7, 2600),
+    FlSpot(1, 2000)
   ];
   int get dataCount{
     return _trackedCalories.length;

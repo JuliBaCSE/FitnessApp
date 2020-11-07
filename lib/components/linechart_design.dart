@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+
+//ToDo: if data == null plot nothing
 class Chart extends StatelessWidget {
   Chart({this.gradientColors, this.data});
   final List<Color> gradientColors;
