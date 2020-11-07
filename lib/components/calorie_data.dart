@@ -3,27 +3,80 @@ import 'dart:collection';
 import 'package:fl_chart/fl_chart.dart';
 
 class CalorieData extends ChangeNotifier{
-  List<FlSpot> _trackedCalories = [
-    FlSpot(1, 2000)
+  List<FlSpot> _trackedCaloriesWeek = [
   ];
-  int get dataCount{
-    return _trackedCalories.length;
+  List<FlSpot> _trackedCaloriesMonth = [
+  ];
+  int get dataCountWeek{
+    return _trackedCaloriesWeek.length;
+  }
+  int get dataCountMonth{
+    return _trackedCaloriesMonth.length;
   }
   void addItem(double day, double calorieAmount){
-    _trackedCalories.add( FlSpot(day, calorieAmount));
+    bool dayAlreadyIncluded = false;
+    for(int i = 0; i<dataCountWeek ; i++){
+      FlSpot tracked = _trackedCaloriesWeek[i];
+      if(tracked.props[0] == day){
+        double calc = tracked.props[1];
+        _trackedCaloriesWeek.removeAt(i);
+        calc += calorieAmount;
+        _trackedCaloriesWeek.insert(i, FlSpot(day, calc));
+        dayAlreadyIncluded = true;
+      }
+    }
+    if(!dayAlreadyIncluded) {
+      _trackedCaloriesWeek.add(FlSpot(day, calorieAmount));
+      if (_trackedCaloriesWeek.length % 7 == 0) {
+        int count = 0;
+        int week = 1;
+        double avgCaloriesWeek = 0;
+        double avgCaloriesMonth = 0;
+        for (FlSpot tracked in _trackedCaloriesWeek) {
+          avgCaloriesWeek += tracked.props[1];
+          count++;
+          if (count == 7) {
+            count = 0;
+            avgCaloriesMonth = avgCaloriesWeek / 7;
+            _trackedCaloriesMonth.add(
+                FlSpot(week.toDouble(), avgCaloriesMonth));
+            week++;
+            avgCaloriesWeek = 0;
+          }
+        }
+      }
+    }
+    print(dataCountWeek);
     notifyListeners();
   }
 
-  UnmodifiableListView <FlSpot> get trackedCalories{
-    return UnmodifiableListView(_trackedCalories);
+  UnmodifiableListView <FlSpot> get trackedCaloriesWeek{
+    return UnmodifiableListView(_trackedCaloriesWeek);
+  }
+  UnmodifiableListView <FlSpot> get trackedCaloriesMonth{
+    return UnmodifiableListView(_trackedCaloriesMonth);
   }
 
-  double getAvgCalories (){
+  double getWeekAvgCalorie (){
     double avgCalories = 0;
-    for(FlSpot tracked in _trackedCalories){
-      avgCalories += tracked.props[1];
+    if(_trackedCaloriesWeek.length != 0) {
+      for (FlSpot tracked in _trackedCaloriesWeek) {
+        avgCalories += tracked.props[1];
+      }
+      return avgCalories/(dataCountWeek.toDouble());
     }
-    return avgCalories/(dataCount.toDouble());
+    return avgCalories;
+  }
+
+  double getMonthAvgCalorie (){
+    double avgCalories = 0;
+    if(_trackedCaloriesMonth.length != 0) {
+      for (FlSpot tracked in _trackedCaloriesMonth) {
+        avgCalories += tracked.props[1];
+      }
+      return avgCalories/(dataCountMonth.toDouble());
+    }
+    return avgCalories;
   }
 
 }

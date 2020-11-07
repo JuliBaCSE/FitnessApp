@@ -38,11 +38,11 @@ class _AddCaloriesState extends State<AddCalories> {
                 },
                 icon: Icons.add,
                 iconColor: kBottomContainerColor,
-                title: addPast?  "Past":"Today",
+                title: !addPast?  "Past":"Today",
                 style: kLabelTextStyle,
                 fillColor: kContainerColor,
               )),
-          Text(addPast ? "Add Calories" : "Add past Calories",
+          Text( !addPast ? "Add Calories" : "Add past Calories",
               textAlign: TextAlign.center, style: kTitleTextStyle2),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 50),

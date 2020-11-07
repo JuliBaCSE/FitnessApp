@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 //ToDo: if data == null plot nothing
 class Chart extends StatelessWidget {
-  Chart({this.gradientColors, this.data});
+  Chart({this.gradientColors, this.data, this.frame});
   final List<Color> gradientColors;
   final data;
+  final String frame;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class Chart extends StatelessWidget {
                 color: Color(0xff68737d),
                 fontWeight: FontWeight.bold,
                 fontSize: 16),
-            getTitles: (value) {
+            getTitles: frame == "week"? (value) {
               switch (value.toInt()) {
                 case 1:
                   return 'MON';
@@ -53,6 +54,18 @@ class Chart extends StatelessWidget {
                   return 'SAT';
                 case 7:
                   return 'SUN';
+              }
+              return '';
+            }:(value) {
+              switch (value.toInt()) {
+                case 1:
+                  return 'W 1';
+                case 2:
+                  return 'W 2';
+                case 3:
+                  return 'W 3';
+                case 4:
+                  return 'W 4';
               }
               return '';
             },
@@ -84,18 +97,18 @@ class Chart extends StatelessWidget {
             show: true,
             border: Border.all(color: const Color(0xff37434d), width: 1)),
         minX: 1,
-        maxX: 7,
+        maxX: frame == "week"? 7 : 4,
         minY: 1000,
         maxY: 3500,
         lineBarsData: [
           LineChartBarData(
-            spots: data,
+            spots: data.length == 0 ?[FlSpot(1,1000)]:data,
             isCurved: true,
             colors: gradientColors,
             barWidth: 2,
             isStrokeCapRound: true,
             dotData: FlDotData(
-              show: true,
+              show: data.length != 0,
             ),
             belowBarData: BarAreaData(
               show: true,

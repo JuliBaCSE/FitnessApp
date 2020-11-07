@@ -36,19 +36,9 @@ class CalorieTracking extends StatelessWidget {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-
-            ReusableCard(
-              colour: kContainerColor,
-              cardChild: Column(
-                children: [
-                  CalorieTrackChart(),
-                ],
-                //trackedCalories,
-              ),
-            ),
             ReusableCard(
               colour: kContainerColor,
               cardChild: Container(
@@ -59,20 +49,64 @@ class CalorieTracking extends StatelessWidget {
                   children: [
                     Text(
                       "Avg Calories this Week",
-                      style: kTitleTextStyle2,
+                      style: kResultTextStyle,
                     ),
                     SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     Text(
-                      '${Provider.of<CalorieData>(context).getAvgCalories().toStringAsFixed(1)}',
+                      '${Provider.of<CalorieData>(context).getWeekAvgCalorie().toStringAsFixed(1)}',
                       textAlign: TextAlign.center,
-                      style: kNumberTextStyle,
+                      style: kNumberTextStyle2,
                     ),
                   ],
                 ),
               ),
             ),
+            ReusableCard(
+              colour: kContainerColor,
+              cardChild: Column(
+                children: [
+                  CalorieTrackChart(frame: 'week',),
+                ],
+                //trackedCalories,
+              ),
+            ),
+
+            ReusableCard(
+              colour: kContainerColor,
+              cardChild: Container(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Avg Calories this Month",
+                      style: kResultTextStyle,
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Text(
+                      '${Provider.of<CalorieData>(context).getMonthAvgCalorie().toStringAsFixed(1)}',
+                      textAlign: TextAlign.center,
+                      style: kNumberTextStyle2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ReusableCard(
+              colour: kContainerColor,
+              cardChild: Column(
+                children: [
+                  CalorieTrackChart(frame: 'month',),
+                ],
+                //trackedCalories,
+              ),
+            ),
+
           ],
         ),
       ),

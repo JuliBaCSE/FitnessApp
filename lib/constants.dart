@@ -8,6 +8,7 @@ const kBottomContainerColor = Color(0xFFEB1555);
 
 const kLabelTextStyle = TextStyle(fontSize: 18, color: Color(0xFF8D8E98));
 const kNumberTextStyle = TextStyle(fontSize: 50, fontWeight: FontWeight.w900,);
+const kNumberTextStyle2 = TextStyle(fontSize: 24, fontWeight: FontWeight.w900,);
 const kCalcTrackTextStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w900,);
 const kLargeButtonTextStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.bold);
 const kLargeButtonTextStyle2 = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
