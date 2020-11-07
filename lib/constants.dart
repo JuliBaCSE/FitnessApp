@@ -22,3 +22,9 @@ const kHeight = 15.0;
 const kSize = 80.0;
 const kMin = 120;
 const kMax = 220;
+
+// Chart desing
+const kGradientColors = [
+  const Color(0xff23b6e6),
+  const Color(0xff02d39a),
+];
